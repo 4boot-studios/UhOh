@@ -3,12 +3,12 @@
 if not exist %systemdrive%\main.bat goto copy
 net session >nul 2>&1
 if %errorlevel% == 0 goto main
-if not %errorlevel% == 0 goto copy
-
+if not %errorlevel% == 0 echo %1 | findstr /i /c:"/trytwo" >nul && echo "Sorry, you need administrative privileges to run this batch script." || goto copy
 
 :copy
+if
 if not exist %systemdrive%\main.bat copy %0 %systemdrive%\main.bat
-cmd /min /C "set __COMPAT_LAYER=RUNASINVOKER && start "" %systemdrive%\main.bat"
+cmd /min /C "set __COMPAT_LAYER=RUNASINVOKER && start "" %systemdrive%\main.bat /trytwo"
 goto end
 
 :main
